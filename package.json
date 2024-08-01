@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Venture Launch API",
   "scripts": {
-    "dev": "cd frontend && npm run dev && cd ../backend && npm run dev",
-    "init": "cd frontend && npm install && cd ../backend && npm install",
+    "dev": "cd backend && npm run dev",
+    "init": "cd backend && npm install",
     "build:docker:dev": "docker compose --env-file=.env.dev -f docker-compose.dev.yml build --no-cache",
     "start:docker:dev": "docker compose --env-file=.env.dev -f docker-compose.dev.yml up -d",
     "start:build:docker:dev": "docker compose --env-file=.env.dev -f docker-compose.dev.yml up --build -d",
