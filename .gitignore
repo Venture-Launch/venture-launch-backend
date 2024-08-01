@@ -43,7 +43,7 @@ node_modules/
 jspm_packages/
 dist-ssr
 *.local
-!Dockerfile.local
+!.Dockerfile.local
 
 # Editor directories and files
 .vscode/*
