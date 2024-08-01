@@ -11,7 +11,7 @@ export class AuthController {
     request.session.user = await authService.loginWithWallet(token, publicKey, request.sessionID);
 
     return response
-      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME}=${token}; path=/; HttpOnly`)
+      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME}=${token}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; HttpOnly`)
       .status(HttpStatusCode.Created)
       .json(request.session.user);
   }
@@ -26,7 +26,7 @@ export class AuthController {
     request.session.user = user;
 
     return response
-      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME}=${accessToken}; path=/; HttpOnly`)
+      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME}=${accessToken}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; HttpOnly`)
       .status(HttpStatusCode.Created)
       .json(request.session.user);
   }
@@ -42,7 +42,7 @@ export class AuthController {
     request.session.user = user;
 
     return response
-      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME}=${accessToken}; path=/; HttpOnly`)
+      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME}=${accessToken}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; HttpOnly`)
       .status(HttpStatusCode.Created)
       .json(request.session.user);
   }
@@ -102,7 +102,7 @@ export class AuthController {
 
     const { token } = await authService.generateGoogleOAuth2Token(code, state);
 
-    return response.setHeader(`Set-Cookie`, `auth.token=${token}; path=/;`).redirect(state.referer);
+    return response.setHeader(`Set-Cookie`, `auth.token=${token}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/;`).redirect(state.referer);
   }
 }
 

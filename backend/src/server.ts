@@ -33,6 +33,7 @@ app.use(
     secret: process.env.SESSION_SECRET || '',
     cookie: {
       httpOnly: true,
+      domain: process.env.COOKIES_DOMAIN,
       maxAge: Number(process.env.SESSION_MAX_AGE || 24 * 60 * 60 * 1000),
     },
   }),
