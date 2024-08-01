@@ -62,7 +62,6 @@ services:
     expose:
       - ${INTERNAL_NGINX_PORT}
     depends_on:
-      - frontend
       - backend
     restart: unless-stopped
 

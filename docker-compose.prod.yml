@@ -98,7 +98,6 @@ services:
       - ${INTERNAL_NGINX_PORT}
       - ${INTERNAL_SSL_NGINX_PORT}
     depends_on:
-      - frontend
       - backend
     restart: unless-stopped
     command:
