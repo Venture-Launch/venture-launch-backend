@@ -1,5 +1,4 @@
 # Venture Launch
-**Solana Program Repo: https://github.com/Web3-NaUKMA/VentureLaunch.git**
 
 ## Getting started
 These instructions will help you get a copy of the project up and running on your local machine for development and testing purposes.
@@ -9,11 +8,11 @@ These instructions will help you get a copy of the project up and running on you
 1. Clone the project
    
     ```
-    git clone https://github.com/Web3-NaUKMA/venture-launch.git
+    git clone https://github.com/Venture-Launch/venture-launch.git
     ```
     or using SSH
     ```
-    git clone git@github.com:Web3-NaUKMA/venture-launch.git
+    git clone git@github.com:Venture-Launch/venture-launch.git
     ```
 2. Navigate to the project directory
    
