@@ -20,8 +20,10 @@ export const exceptionsFilter = (
   switch (true) {
     case error instanceof AuthException:
       return response
-        .clearCookie('connect.sid')
-        .clearCookie(process.env.AUTH_TOKEN_NAME ?? 'X-Access-Token')
+      .setHeader('Set-Cookie', [
+        `${process.env.AUTH_TOKEN_NAME || 'X-Access-Token'}=; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly`,
+        `connect.sid=; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly`
+      ])
         .status(HttpStatusCode.Unauthorized)
         .json({ error: error.message });
     case error instanceof ServerException || error instanceof DatabaseException:

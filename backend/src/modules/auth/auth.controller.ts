@@ -11,7 +11,7 @@ export class AuthController {
     request.session.user = await authService.loginWithWallet(token, publicKey, request.sessionID);
 
     return response
-      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME}=${token}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; HttpOnly`)
+      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME || 'X-Access-Token'}=${token}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; HttpOnly`)
       .status(HttpStatusCode.Created)
       .json(request.session.user);
   }
@@ -26,7 +26,7 @@ export class AuthController {
     request.session.user = user;
 
     return response
-      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME}=${accessToken}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; HttpOnly`)
+      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME || 'X-Access-Token'}=${accessToken}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; HttpOnly`)
       .status(HttpStatusCode.Created)
       .json(request.session.user);
   }
@@ -42,7 +42,7 @@ export class AuthController {
     request.session.user = user;
 
     return response
-      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME}=${accessToken}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; HttpOnly`)
+      .setHeader(`Set-Cookie`, `${process.env.AUTH_TOKEN_NAME || 'X-Access-Token'}=${accessToken}; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; HttpOnly`)
       .status(HttpStatusCode.Created)
       .json(request.session.user);
   }
@@ -83,8 +83,10 @@ export class AuthController {
       }
 
       return response
-        .clearCookie('connect.sid')
-        .clearCookie(process.env.AUTH_TOKEN_NAME ?? 'X-Access-Token')
+        .setHeader('Set-Cookie', [
+          `${process.env.AUTH_TOKEN_NAME || 'X-Access-Token'}=; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly`,
+          `connect.sid=; domain=${process.env.COOKIES_DOMAIN || 'localhost'}; path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly`
+        ])
         .status(HttpStatusCode.Created)
         .json({ message: 'The user was successfully logged out' });
     });
